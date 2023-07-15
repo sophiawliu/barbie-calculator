@@ -2,6 +2,7 @@ var op = "";
 var x = "";
 var y = "";
 var lastTyped = "";
+var exp = false;
 
 function add(x, y) {
     return x + y;
@@ -16,6 +17,9 @@ function multiply(x, y) {
 }
 
 function divide(x, y) {
+    if (y === 0) {
+        return "nope!";
+    }
     return x / y;
 }
 
@@ -23,14 +27,22 @@ function operate(x, y, op) {
     x = Number(x);
     y = Number(y);
     if (op === "+") {
-        return add(x, y);
+        result = add(x, y);
     } else if (op === "-") {
-        return subtract(x, y);
+        result = subtract(x, y);
     } else if (op === "×") {
-        return multiply(x, y);
+        result = multiply(x, y);
     } else if (op === "÷") {
-        return divide(x, y);
+        result = divide(x, y);
     }
+    if (typeof result == "number" && result % 1 != 0) {
+        result = result.toFixed(1);
+    } else if (result > 99999999) {
+        result = result.toExponential(2);
+        exp = true;
+    }
+    console.log(result);
+    return result;
 }
 
 const tracker = document.querySelector(".tracker");
@@ -80,11 +92,22 @@ operators.forEach((operator) => {
 function assignOperator(event) {
     if (lastTyped === "+" || lastTyped === "-" || lastTyped === "÷" || lastTyped === "×") {
         return;
+    } 
+    if (exp) {
+        console.log("OOPS")
+        clearAll();
+        exp = false;
     }
+    if (typeof x === "number") {
+        x = `${x}`;
+    }
+    console.log(y, y.length, x, typeof x)
     if (x.length > 0 && y.length == 0) {
+        console.log("yello")
         y = displayValue;
     }
     if (x.length > 0 && y.length > 0) {
+        console.log("we're here!")
         displayValue = operate(x, y, op);
         screen.innerText = displayValue;
         x = displayValue;
