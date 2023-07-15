@@ -1,0 +1,141 @@
+@font-face {
+    font-family: "AvantGarde";
+    src: url(Avant-Garde-Font/AVGARDN_2.TTF);
+}
+
+body {
+    background-image: url("postersky.png");
+    background-size: cover; /* or "contain" depending on what you want */
+    background-position: center center;
+    background-repeat: no-repeat;
+    text-align:center;
+    margin:auto;
+    padding:0;
+    background-attachment: fixed;
+}
+
+#this-barbie {
+    font-family: "AvantGarde";
+    color: white;
+    font-size: 26px;
+    margin-top: 50px;
+    font-weight: bolder;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 700px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#mattel {
+    position: relative;
+    height: 60px;
+    width: 60px;
+    z-index: 1000;
+    margin-left: 72px;
+    margin-top: 61px;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 650px;
+    position: fixed;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    align-items: center;
+
+    /* border: 2px solid black; */
+    background-color: pink;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+#barbie {
+    display: block;
+    margin-top: 15px;
+    height: 60px;
+}
+
+#screen {
+    display: flex;
+
+    width: 344px;
+    height: 110px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    background-color: aqua;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
+
+#calc-display {
+    color:#FD018F;
+    font-family: "AvantGarde";
+    font-size: 60px;
+    font-weight: bolder;
+    letter-spacing: -3px;
+}
+
+#barbiehead {
+    height: 60px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+button {
+    background-color: #FD018F;
+    font-family: "AvantGarde";
+    color: white;
+    font-size: 35px;
+    font-weight: bolder;
+
+    width: 80px;
+    height: 80px;
+    margin: 3px;
+
+    text-align: center;
+    vertical-align: middle;
+    line-height: 80px;
+    
+    border-radius: 50%;
+    border-style: none;
+}
+
+.clear , .equals {
+    width: 256px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.clear {
+    background-color: deepskyblue;
+}
+
+.operator , .equals {
+    background-color: coral;
+}
