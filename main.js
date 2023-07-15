@@ -37,12 +37,15 @@ function operate(x, y, op) {
     }
     if (typeof result == "number" && result % 1 != 0) {
         result = result.toFixed(1);
-    } else if (result > 99999999) {
-        result = result.toExponential(2);
-        exp = true;
     }
-    console.log(result);
     return result;
+}
+
+function addCommas(val) {
+    if (val.length > 3 || val.length > 3 && val.length % 3 > 0) {
+        val = `${Number(val).toLocaleString()}`;
+    }
+    return val;
 }
 
 const tracker = document.querySelector(".tracker");
@@ -53,13 +56,18 @@ equals.addEventListener('click', evaluate);
 
 function evaluate(event) {
     lastTyped = event.target.textContent;
-    y = displayValue;
-    displayValue = operate(x, y, op);
+    y = value;
+    value = `${operate(x, y, op)}`;
+    if (value.length > 8) {
+        displayValue = parseInt(value).toExponential(2);
+        exp = true;
+    } else {
+        displayValue = addCommas(value);
+    }
     screen.innerText = displayValue;
-    x = displayValue;
+    x = value;
     y = "";
     op = "";
-    console.log("after equals", `x: ${x}`, `y: ${y}`, `op: ${op}`, `lastTyped: ${lastTyped}`);
 }
 
 // NUMBER
@@ -69,6 +77,7 @@ numbers.forEach((number) => {
 });
 
 var displayValue = "";
+var value = ""; // without commas
 const screen = document.querySelector("#calc-display");
 function populateDisplay(event) {
     if (lastTyped === "=") {
@@ -76,12 +85,12 @@ function populateDisplay(event) {
         clearAll();
     }
     lastTyped = event.target.textContent;
-    if (displayValue.length > 7) {
+    if (displayValue.length > 8) {
         return;
     }
-    displayValue += event.target.textContent;
+    value += event.target.textContent;
+    displayValue = addCommas(value);
     screen.innerText = displayValue;
-    console.log("after number", `x: ${x}`, `y: ${y}`, `op: ${op}`, `lastTyped: ${lastTyped}`);
 }
 
 // OPERATOR
@@ -94,35 +103,32 @@ function assignOperator(event) {
         return;
     } 
     if (exp) {
-        console.log("OOPS")
         clearAll();
         exp = false;
     }
     if (typeof x === "number") {
         x = `${x}`;
     }
-    console.log(y, y.length, x, typeof x)
     if (x.length > 0 && y.length == 0) {
-        console.log("yello")
-        y = displayValue;
+        y = value;
     }
     if (x.length > 0 && y.length > 0) {
-        console.log("we're here!")
-        displayValue = operate(x, y, op);
+        value = `${operate(x, y, op)}`;
+        displayValue = addCommas(value);
         screen.innerText = displayValue;
-        x = displayValue;
+        x = value;
         y = "";
         op = "";
     }
     lastTyped = event.target.textContent;
     op = event.target.textContent;
-    x = displayValue;
+    x = value; // redundant?
     tempClear();
-    console.log("after operator", `x: ${x}`, `y: ${y}`, `op: ${op}`, `lastTyped: ${lastTyped}`);
 }
 
 function tempClear() {
     displayValue = "";
+    value = "";
 }
 
 // CLEAR
@@ -130,6 +136,7 @@ var clear = document.querySelector(".clear");
 clear.addEventListener('click', clearAll);
 function clearAll() {
     displayValue = "";
+    value = "";
     x = "";
     y = "";
     op = "";
