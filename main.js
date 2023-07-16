@@ -100,7 +100,7 @@ var value = ""; // without commas
 const screen = document.querySelector("#calc-display");
 const currOperation = document.querySelector("#current-operation");
 function populateDisplay(event) {
-    if (lastTyped === "=" || lastTyped === "0") {
+    if (lastTyped === "=" || lastTyped === "0" && displayValue.length == 1) {
         x = displayValue;
         clearAll();
     }
