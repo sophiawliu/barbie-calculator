@@ -18,7 +18,8 @@ body {
     font-family: "AvantGarde";
     color: white;
     font-size: 32px;
-    margin-top: 48px;
+    position: relative;
+    margin-top: 0px;
     font-weight: bolder;
 }
 
@@ -39,7 +40,6 @@ body {
     width: 60px;
     z-index: 1000;
     margin-left: 72px;
-    margin-top: 61px;
 }
 
 #calculator {
