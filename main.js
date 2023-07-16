@@ -17,9 +17,6 @@ function multiply(x, y) {
 }
 
 function divide(x, y) {
-    if (y === 0) {
-        return "nope!";
-    }
     return x / y;
 }
 
@@ -57,6 +54,9 @@ var equals = document.querySelector(".equals");
 equals.addEventListener('click', evaluate);
 
 function evaluate(event) {
+    if (lastTyped === "=") {
+        return;
+    }
     if (exp) {
         clearAll();
         return;
@@ -67,18 +67,25 @@ function evaluate(event) {
     lastTyped = event.target.textContent;
     y = value;
     value = `${operate(x, y, op)}`;
+    displayValue = addCommas(value);
     if (value.length > 7 && !value.includes(".")) {
         displayValue = parseInt(value).toExponential(2);
         exp = true;
-    } else {
-        displayValue = addCommas(value);
     }
-    screen.innerText = displayValue;
-    operationDisplay += " " + "=";
-    currOperation.innerText = operationDisplay;
-    x = value;
+    if (parseInt(lastTyped)) {
+        operationDisplay = displayValue;
+    }
+    if (op === "÷" && y == 0) {
+        displayValue = "nope!"
+        x = "";
+    } else {
+        operationDisplay += " " + "=";
+        x = value;
+    }
     y = "";
     op = "";
+    currOperation.innerText = operationDisplay;
+    screen.innerText = displayValue;
 }
 
 // NUMBER
@@ -93,7 +100,7 @@ var value = ""; // without commas
 const screen = document.querySelector("#calc-display");
 const currOperation = document.querySelector("#current-operation");
 function populateDisplay(event) {
-    if (lastTyped === "=") {
+    if (lastTyped === "=" || lastTyped === "0") {
         x = displayValue;
         clearAll();
     }
@@ -126,7 +133,7 @@ function assignOperator(event) {
         lastTyped = event.target.textContent;
         return;
     } 
-    if (exp) {
+    if (displayValue === "nope!") {
         clearAll();
         return;
     }
@@ -141,6 +148,10 @@ function assignOperator(event) {
     if (x.length > 0 && y.length > 0) { // "2 + 2 +"
         value = `${operate(x, y, op)}`;
         displayValue = addCommas(value);
+        if (value.length > 7 && !value.includes(".")) {
+            displayValue = parseInt(value).toExponential(2);
+            exp = true;
+        }
         if (parseInt(lastTyped)) {
             operationDisplay = displayValue;
         }
@@ -153,7 +164,7 @@ function assignOperator(event) {
     op = event.target.textContent;
     operationDisplay += ` ${event.target.textContent}`;
     currOperation.innerText = operationDisplay;
-    x = value; // redundant?
+    x = value;
     tempClear();
 }
 
