@@ -3,6 +3,11 @@
     src: url(Avant-Garde-Font/AVGARDN_2.TTF);
 }
 
+@font-face {
+    font-family: "Peralta";
+    src: url(Peralta-Regular.ttf);
+}
+
 body {
     background-image: url("postersky.png");
     background-size: cover; /* or "contain" depending on what you want */
@@ -161,4 +166,21 @@ button:active {
 
 .operator:active , .equals:active {
     background-color:#00a2a4;
+}
+
+#github {
+    position: relative;
+    height: 26px;
+    top: 632px;
+    left: -84px;
+}
+
+#sophiawliu {
+    position: relative;
+    font-family: "Peralta";
+    color: #FD018F;
+    font-size: 22px;
+    text-decoration: none;
+    top: 600px;
+    left: 12px;
 }
