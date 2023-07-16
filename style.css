@@ -22,9 +22,9 @@ body {
 #this-barbie {
     font-family: "AvantGarde";
     color: white;
-    font-size: 32px;
+    font-size: 30px;
     position: relative;
-    margin-top: 0px;
+    margin-top: -5px;
     font-weight: bolder;
 }
 
@@ -45,6 +45,7 @@ body {
     width: 60px;
     z-index: 1000;
     margin-left: 72px;
+    margin-top: 5px;
 }
 
 #calculator {
