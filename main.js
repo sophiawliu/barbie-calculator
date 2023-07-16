@@ -152,7 +152,8 @@ function assignOperator(event) {
             displayValue = parseInt(value).toExponential(2);
             exp = true;
         }
-        if (parseInt(lastTyped)) {
+        console.log(lastTyped)
+        if (parseInt(lastTyped) || lastTyped == "0") {
             operationDisplay = displayValue;
         }
         screen.innerText = displayValue;
